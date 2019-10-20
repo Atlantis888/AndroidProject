@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditTextActivity">
+
+    <Button
+        android:id="@+id/button_ok"
+        android:layout_width="95dp"
+        android:layout_height="37dp"
+        android:text="@string/button_ok"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_book_name"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_book_name" />
+
+    <Button
+        android:id="@+id/button_cancel"
+        android:layout_width="95dp"
+        android:layout_height="37dp"
+        android:text="@string/button_cancel"
+        app:layout_constraintBottom_toBottomOf="@+id/button_ok"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_book_name"
+        app:layout_constraintStart_toEndOf="@+id/button_ok"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_book_name" />
+
+    <EditText
+        android:id="@+id/edit_text_book_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/初始文本"
+
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+</android.support.constraint.ConstraintLayout>
