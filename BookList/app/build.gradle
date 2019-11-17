@@ -31,4 +31,5 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     //noinspection GradleDeprecatedConfiguration
     testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:design:26.+'
 }

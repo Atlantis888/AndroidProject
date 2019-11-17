@@ -1,16 +1,16 @@
 package com.casper.testdrivendevelopment;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,6 +22,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.casper.testdrivendevelopment.data.BookFragmentAdapter;
+import com.casper.testdrivendevelopment.BookListFragment;
+import com.casper.testdrivendevelopment.data.FileDataSource;
+import com.casper.testdrivendevelopment.data.model.Book;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +41,8 @@ public class BookListMainActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_NEW_GOOD = 901;
     public static final int REQUEST_CODE_UPDATE_GOOD = 902;
     private FileDataSource fileDataSource;
-    private ArrayList<Book> theBooks=new ArrayList<>();
-    private ListView listViewSuper;
+    private ArrayList<Book> theBooks;
+    //private ListView listViewSuper;
     private BooksArrayAdapter theAdapter;
     @Override
     protected void onDestroy() {
@@ -48,6 +53,7 @@ public class BookListMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list_main);
+        /*
         fileDataSource=new FileDataSource(this);
         theBooks=fileDataSource.load();
         if(theBooks.size()==0)
@@ -55,13 +61,35 @@ public class BookListMainActivity extends AppCompatActivity {
         listViewSuper= (ListView) this.findViewById(R.id.list_view_books);
         theAdapter=new BooksArrayAdapter(this,R.layout.list_item,theBooks);
         listViewSuper.setAdapter(theAdapter);
-        this.registerForContextMenu(listViewSuper);
+        this. registerForContextMenu(listViewSuper);
+    */
+        InitData();
+
+        theAdapter=new BooksArrayAdapter(this,R.layout.list_item,theBooks);
+
+        BookFragmentAdapter myPageAdapter = new BookFragmentAdapter(getSupportFragmentManager());
+
+        ArrayList<Fragment> datas = new ArrayList<Fragment>();
+        datas.add(new BookListFragment(theAdapter));
+        datas.add(new BookListFragment(theAdapter));
+        myPageAdapter.setData(datas);
+
+        ArrayList<String> titles = new ArrayList<String>();
+        titles.add("商品");
+        titles.add("信息");
+        myPageAdapter.setTitles(titles);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager.setAdapter(myPageAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
+
 
     //添加长按点击弹出选择菜单
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        if(v==listViewSuper) {
+        if(v==this.findViewById(R.id.list_view_books)) {
             int itemPosition=((AdapterView.AdapterContextMenuInfo)menuInfo).position;
             menu.setHeaderTitle(theBooks.get(itemPosition).getTitle());
             menu.add(0, CONTEXT_MENU_ITEM_NEW, 0, "新建");
