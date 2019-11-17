@@ -71,12 +71,14 @@ public class BookListMainActivity extends AppCompatActivity {
 
         ArrayList<Fragment> datas = new ArrayList<Fragment>();
         datas.add(new BookListFragment(theAdapter));
-        datas.add(new BookListFragment(theAdapter));
+        datas.add(new WebViewFragment());
+        datas.add(new WebViewFragment());
         myPageAdapter.setData(datas);
 
         ArrayList<String> titles = new ArrayList<String>();
-        titles.add("商品");
-        titles.add("信息");
+        titles.add("图书");
+        titles.add("新闻");
+        titles.add("卖家");
         myPageAdapter.setTitles(titles);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tablayout);
